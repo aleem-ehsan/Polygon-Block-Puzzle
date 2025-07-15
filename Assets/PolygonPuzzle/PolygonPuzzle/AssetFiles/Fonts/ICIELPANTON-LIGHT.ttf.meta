@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: fc9ec1dafc3c143b7985da2de98f5b87
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - iCiel Panton
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 93e029be832e44b7d9fef28127cea9ec, type: 3}
+  - {fileID: 12800000, guid: 3339c1bfc88044d30b659e983b0feff1, type: 3}
+  - {fileID: 12800000, guid: d72cbeee9fd834aa7bf41b637b926df7, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
