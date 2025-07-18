@@ -14,7 +14,7 @@ namespace dotmob.PolygonPuzzle
 		private class PolygonObject
 		{
 			public int				index					= 0;
-			public PolygonImage		polygonImage			= null;
+			public PolygonSprite		polygonSprite			= null;
 			public RectTransform	polygonContainerMarker	= null;
 			public bool				isOnBoard				= false;
 			public Vector2			gridPosition			= Vector2.zero;
@@ -24,7 +24,7 @@ namespace dotmob.PolygonPuzzle
 
 		#region Inspector Variables
 
-		[SerializeField] private PolygonImage 		polygonImagePrefab		= null;
+		[SerializeField] private PolygonSprite 		polygonSpritePrefab		= null;
 		[SerializeField] private RectTransform		boardContainer			= null;
 		[SerializeField] private GridLayoutGroup	polygonContainer		= null;
 		[SerializeField] private float				spaceBetweenContainers	= 25f;
@@ -37,7 +37,7 @@ namespace dotmob.PolygonPuzzle
 		[SerializeField] private bool				polygonsFitCell		= true;
 		[SerializeField] private float				polygonGhostAlpha	= 0.5f;
 		[SerializeField] private List<Color> 		polygonColors 		= null;
-		[SerializeField] private List<Texture2D> 	polygonTextures 	= null;
+		[SerializeField] private List<Sprite> 		polygonSprites 		= null;
 		[Space]
 		[SerializeField] private float				hintMinAlpha		= 0.5f;
 		[SerializeField] private float				hintMaxAlpha		= 0.5f;
@@ -48,7 +48,7 @@ namespace dotmob.PolygonPuzzle
 
 		#region Member Variables
 
-		private ObjectPool				polygonImagePool;
+		private ObjectPool				polygonSpritePool;
 		private RectTransform 			placedPolygonsContainer;
 		private RectTransform 			polygonHintsContainer;
 		private GridImage				gridImage;
@@ -85,7 +85,7 @@ namespace dotmob.PolygonPuzzle
 			polygonObjects		= new List<PolygonObject>();
 			hintPolygonObjects	= new List<PolygonObject>();
 
-			polygonImagePool = new ObjectPool(polygonImagePrefab.gameObject, 2, ObjectPool.CreatePoolContainer(transform, "polygon_image_pool"));
+			polygonSpritePool = new ObjectPool(polygonSpritePrefab.gameObject, 2, ObjectPool.CreatePoolContainer(transform, "polygon_sprite_pool"));
 
 			// Create the two contains that will hold the polygons that are placed on the board
 			placedPolygonsContainer	= CreateBoardContainer("placed_polygons_container");
@@ -171,9 +171,9 @@ namespace dotmob.PolygonPuzzle
 			{
 				// Create a PolygonObject that will be displayed on the grid as a preview/ghost polygon when dragging
 				activePolygonObjectGhost = CreatePolygonObject(activeLevelData, activePolygonObject.index);
-				activePolygonObjectGhost.polygonImage.gameObject.SetActive(false);
+				activePolygonObjectGhost.polygonSprite.gameObject.SetActive(false);
 
-				SetPolygonAlpha(activePolygonObjectGhost.polygonImage, polygonGhostAlpha);
+				SetPolygonAlpha(activePolygonObjectGhost.polygonSprite, polygonGhostAlpha);
 
 				 SoundManager.Instance.Play("shape-selected");
 			}
@@ -193,13 +193,13 @@ namespace dotmob.PolygonPuzzle
 
 			if (TryGetValidGridPosition(out gridPosition))
 			{
-				activePolygonObjectGhost.polygonImage.gameObject.SetActive(true);
+				activePolygonObjectGhost.polygonSprite.gameObject.SetActive(true);
 
 				MovePolygonToBoard(activePolygonObjectGhost, gridPosition, false);
 			}
 			else
 			{
-				activePolygonObjectGhost.polygonImage.gameObject.SetActive(false);
+				activePolygonObjectGhost.polygonSprite.gameObject.SetActive(false);
 			}
 		}
 
@@ -230,8 +230,8 @@ namespace dotmob.PolygonPuzzle
 					GameManager.Instance.PolygonRemovedFromBoard(activePolygonObject.index);
 				}
 
-				// Return the placement polygon image to the pool
-				ObjectPool.ReturnObjectToPool(activePolygonObjectGhost.polygonImage.gameObject);
+				// Return the placement polygon sprite to the pool
+				ObjectPool.ReturnObjectToPool(activePolygonObjectGhost.polygonSprite.gameObject);
 
 				SoundManager.Instance.Play("shape-placed");
 			}
@@ -251,13 +251,13 @@ namespace dotmob.PolygonPuzzle
 			hintPolygonObjects.Add(polygonObject);
 
 			// Start the animation that will fade in/out the hint
-			Color fromColor	= polygonObject.polygonImage.color;
-			Color toColor	= polygonObject.polygonImage.color;
+			Color fromColor	= polygonObject.polygonSprite.color;
+			Color toColor	= polygonObject.polygonSprite.color;
 
 			fromColor.a	= hintMinAlpha;
 			toColor.a	= hintMaxAlpha;
 
-			UIAnimation animation = UIAnimation.Color(polygonObject.polygonImage, fromColor, toColor, hintAnimDuration);
+			UIAnimation animation = UIAnimation.Color(polygonObject.polygonSprite, fromColor, toColor, hintAnimDuration);
 
 			animation.style				= UIAnimation.Style.Custom;
 			animation.animationCurve	= hintAnimCurve;
@@ -337,7 +337,7 @@ namespace dotmob.PolygonPuzzle
 		/// </summary>
 		public void Clear()
 		{
-			polygonImagePool.ReturnAllObjectsToPool();
+			polygonSpritePool.ReturnAllObjectsToPool();
 
 			// Destroy all the polygon markers in the polygon container
 			for (int i = 0; i < polygonObjects.Count; i++)
@@ -350,7 +350,7 @@ namespace dotmob.PolygonPuzzle
 			// Stop the UIAnimations on the hint polygons
 			for (int i = 0; i < hintPolygonObjects.Count; i++)
 			{
-				UIAnimation.DestroyAllAnimations(hintPolygonObjects[i].polygonImage.gameObject);
+				UIAnimation.DestroyAllAnimations(hintPolygonObjects[i].polygonSprite.gameObject);
 			}
 
 			polygonObjects.Clear();
@@ -413,8 +413,8 @@ namespace dotmob.PolygonPuzzle
 				polygonObject.polygonContainerMarker = new GameObject("polygon_marker").AddComponent<RectTransform>();
 				polygonObject.polygonContainerMarker.SetParent(polygonContainer.transform, false);
 
-				float polygonWidth	= polygonObject.polygonImage.rectTransform.rect.width;
-				float polygonHeight	= polygonObject.polygonImage.rectTransform.rect.width;
+				float polygonWidth	= polygonObject.polygonSprite.rectTransform.rect.width;
+				float polygonHeight	= polygonObject.polygonSprite.rectTransform.rect.width;
 
 				float widthDiff		= Mathf.Abs(polygonContainer.cellSize.x - polygonWidth);
 				float heightDiff	= Mathf.Abs(polygonContainer.cellSize.y - polygonHeight);
@@ -440,41 +440,60 @@ namespace dotmob.PolygonPuzzle
 		private PolygonObject CreatePolygonObject(LevelData levelData, int polygonIndex)
 		{
 			PolygonData		polygonData		= levelData.PolygonDatas[polygonIndex];
-			PolygonImage	polygonImage	= polygonImagePool.GetObject<PolygonImage>();
+			PolygonSprite	polygonSprite	= polygonSpritePool.GetObject<PolygonSprite>();
 
-			SetPolygonVisuals(polygonImage, polygonIndex + levelData.LevelIndex);
+			SetPolygonVisuals(polygonSprite, polygonIndex + levelData.LevelIndex);
 
-			polygonImage.Setup(polygonData, polygonScale, boardContainer.rect.width);
+			polygonSprite.Setup(polygonData, polygonScale, boardContainer.rect.width);
 
 			PolygonObject polygonObject = new PolygonObject();
 
 			polygonObject.index			= polygonIndex;
-			polygonObject.polygonImage	= polygonImage;
+			polygonObject.polygonSprite	= polygonSprite;
 
 			return polygonObject;
 		}
 
 		/// <summary>
-		/// Sets the color and texture of the PolygonImage
+		/// Sets the color and sprite of the PolygonSprite
 		/// </summary>
-		private void SetPolygonVisuals(PolygonImage polygonImage, int index)
+		private void SetPolygonVisuals(PolygonSprite polygonSprite, int index)
 		{
-			polygonImage.color		= polygonColors[index % polygonColors.Count];
-			polygonImage.texture	= polygonTextures[index % polygonTextures.Count];
+			// Set color with null check
+			if (polygonColors != null && polygonColors.Count > 0)
+			{
+				polygonSprite.color = polygonColors[index % polygonColors.Count];
+			}
+			else
+			{
+				polygonSprite.color = Color.white; // Default color
+			}
 
-			SetPolygonAlpha(polygonImage, 1f);
+			// Set sprite with null check
+			if (polygonSprites != null && polygonSprites.Count > 0)
+			{
+				polygonSprite.sprite = polygonSprites[index % polygonSprites.Count];
+			}
+			else
+			{
+				// If no sprites are assigned, create a default white sprite or use a fallback
+				polygonSprite.sprite = null;
+				Debug.LogWarning("No sprites assigned to polygonSprites list in GameArea. Please assign sprites in the inspector.");
+			}
+
+			SetPolygonAlpha(polygonSprite, 1f);
 		}
 
 		/// <summary>
-		/// Sets the alpha of the PolygonImage color
+		/// Sets the alpha of the PolygonSprite color
 		/// </summary>
-		private void SetPolygonAlpha(PolygonImage polygonImage, float alpha)
+		private void SetPolygonAlpha(PolygonSprite polygonSprite, float alpha)
 		{
-			Color color = polygonImage.color;
+			Color color = polygonSprite.color;
 
 			color.a = alpha;
 
-			polygonImage.color = color;
+			polygonSprite.color = color;
 		}
 
 		/// <summary>
@@ -482,10 +501,10 @@ namespace dotmob.PolygonPuzzle
 		/// </summary>
 		private void MoveToPolygonMarker(PolygonObject polygonObject, bool animate = false)
 		{
-			polygonObject.polygonImage.rectTransform.SetParent(polygonObject.polygonContainerMarker, false);
+			polygonObject.polygonSprite.rectTransform.SetParent(polygonObject.polygonContainerMarker, false);
 
-			polygonObject.polygonImage.rectTransform.anchoredPosition	= Vector2.zero;
-			polygonObject.polygonImage.rectTransform.localScale			= polygonsFitCell ? Vector3.one : new Vector3(polygonContainerScale, polygonContainerScale, 1f);
+			polygonObject.polygonSprite.rectTransform.anchoredPosition	= Vector2.zero;
+			polygonObject.polygonSprite.rectTransform.localScale			= polygonsFitCell ? Vector3.one : new Vector3(polygonContainerScale, polygonContainerScale, 1f);
 		}
 
 		private bool TryStartDraggingPolygonInContainer(Vector2 screenPosition)
@@ -534,9 +553,9 @@ namespace dotmob.PolygonPuzzle
 		{
 			activePolygonObject = polygonObject;
 
-			activePolygonObject.polygonImage.transform.SetParent(transform);
+			activePolygonObject.polygonSprite.transform.SetParent(transform);
 
-			activePolygonObject.polygonImage.transform.localScale = Vector3.one;
+			activePolygonObject.polygonSprite.transform.localScale = Vector3.one;
 
 			UpdateActivePolygonObjectPosition(initialScreenPosition);
 		}
@@ -552,9 +571,9 @@ namespace dotmob.PolygonPuzzle
 
 			Vector2 polygonPosition = gameAreaPosition;
 
-			polygonPosition.y += (activePolygonObject.polygonImage.rectTransform.rect.height * activePolygonObject.polygonImage.rectTransform.localScale.y) / 2f;
+			polygonPosition.y += (activePolygonObject.polygonSprite.rectTransform.rect.height * activePolygonObject.polygonSprite.rectTransform.localScale.y) / 2f;
 
-			activePolygonObject.polygonImage.rectTransform.anchoredPosition = polygonPosition;
+			activePolygonObject.polygonSprite.rectTransform.anchoredPosition = polygonPosition;
 		}
 
 		/// <summary>
@@ -562,15 +581,15 @@ namespace dotmob.PolygonPuzzle
 		/// </summary>
 		private bool TryGetValidGridPosition(out Vector2 gridPosition)
 		{
-			RectTransform activePolygonImageRect = activePolygonObject.polygonImage.rectTransform;
+			RectTransform activePolygonSpriteRect = activePolygonObject.polygonSprite.rectTransform;
 
 			// Get the position of the active polygons in the board container
-			Vector2 boardPosition = Utilities.SwitchToRectTransform(activePolygonImageRect, boardContainer);
+			Vector2 boardPosition = Utilities.SwitchToRectTransform(activePolygonSpriteRect, boardContainer);
 
 			// Check that the polygon object (middle point) is on the board
 			if (boardContainer.rect.Contains(boardPosition))
 			{
-				Vector2 polygonSize = activePolygonImageRect.rect.size;
+				Vector2 polygonSize = activePolygonSpriteRect.rect.size;
 
 				// Adjust the polygons board position so it is at the bottom/left corner of the polygon
 				boardPosition -= polygonSize / 2f;
@@ -742,13 +761,13 @@ namespace dotmob.PolygonPuzzle
 		/// </summary>
 		private void MovePolygonToBoard(PolygonObject polygonObject, Vector2 gridPosition, bool isHint)
 		{
-			RectTransform polygonImageRect	= polygonObject.polygonImage.rectTransform;
+			RectTransform polygonSpriteRect	= polygonObject.polygonSprite.rectTransform;
 			RectTransform container			= isHint ? polygonHintsContainer : placedPolygonsContainer;
 
-			polygonImageRect.SetParent(container);
+			polygonSpriteRect.SetParent(container);
 
-			polygonImageRect.localScale			= Vector3.one;
-			polygonImageRect.anchoredPosition	= gridPosition * polygonScale + polygonImageRect.rect.size / 2f - boardContainer.rect.size / 2f;
+			polygonSpriteRect.localScale			= Vector3.one;
+			polygonSpriteRect.anchoredPosition	= gridPosition * polygonScale + polygonSpriteRect.rect.size / 2f - boardContainer.rect.size / 2f;
 
 			polygonObject.isOnBoard		= true;
 			polygonObject.gridPosition	= gridPosition;
