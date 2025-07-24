@@ -3291,17 +3291,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundInfos:
   - id: bkg-music
-    audioClip: {fileID: 8300000, guid: 54673bbc696bf4518b2bc08d1d0a474d, type: 3}
+    audioClip: {fileID: 8300000, guid: 52eecf9f92071e74b89e67c0090d817c, type: 3}
     type: 1
     playAndLoopOnStart: 1
-    clipVolume: 0.295
+    clipVolume: 0.46
   - id: btn-click
     audioClip: {fileID: 8300000, guid: caf294714214845a3817dddc30c4989e, type: 3}
     type: 0
     playAndLoopOnStart: 0
     clipVolume: 1
   - id: shape-selected
-    audioClip: {fileID: 8300000, guid: 14ad188d230394123ad9ebde9d58e8bd, type: 3}
+    audioClip: {fileID: 8300000, guid: 8ecf40566573f5a4db0565b6f1135893, type: 3}
     type: 0
     playAndLoopOnStart: 0
     clipVolume: 1
@@ -3311,7 +3311,7 @@ MonoBehaviour:
     playAndLoopOnStart: 0
     clipVolume: 1
   - id: level-completed
-    audioClip: {fileID: 8300000, guid: 35024b669206f4f3bb55fc3cd97cfb59, type: 3}
+    audioClip: {fileID: 8300000, guid: 0b0672100f5fa844f874788f275d8371, type: 3}
     type: 0
     playAndLoopOnStart: 0
     clipVolume: 1
@@ -3326,7 +3326,7 @@ MonoBehaviour:
     playAndLoopOnStart: 0
     clipVolume: 0.2
   - id: shape-placed
-    audioClip: {fileID: 8300000, guid: ef15290762bbb40e58539502a4f45532, type: 3}
+    audioClip: {fileID: 8300000, guid: 299f930f778f5c64b9488bba46223c2b, type: 3}
     type: 0
     playAndLoopOnStart: 0
     clipVolume: 1
@@ -7036,10 +7036,10 @@ MonoBehaviour:
   polygonGhostAlpha: 0.5
   polygonColors:
   - {r: 0.90588236, g: 0.29803923, b: 0.23529412, a: 1}
-  - {r: 0.11583479, g: 0.7056604, b: 0.59046006, a: 1}
+  - {r: 0.36862746, g: 0.78039217, b: 0.7019608, a: 1}
   - {r: 0.36862746, g: 0.6039216, b: 0.81960785, a: 1}
   - {r: 0.44313726, g: 0.34901962, b: 0.9098039, a: 1}
-  - {r: 0.8039216, g: 0.6784314, b: 0.17254902, a: 1}
+  - {r: 0.8117647, g: 0.7176471, b: 0.34117648, a: 1}
   - {r: 0.89411765, g: 0.4745098, b: 0.19215687, a: 1}
   - {r: 0.6117647, g: 0.53333336, b: 1, a: 1}
   - {r: 0.3372549, g: 0.77254903, b: 0.5274747, a: 1}
@@ -16469,7 +16469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6313726}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -21896,6 +21896,91 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751977659}
   m_CullTransparentMesh: 1
+--- !u!1 &1754725636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1754725638}
+  - component: {fileID: 1754725637}
+  m_Layer: 0
+  m_Name: SoundManager- OLD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1754725637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754725636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e9902908c7248479ce132ebf9b8286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundInfos:
+  - id: bkg-music
+    audioClip: {fileID: 8300000, guid: 52eecf9f92071e74b89e67c0090d817c, type: 3}
+    type: 1
+    playAndLoopOnStart: 1
+    clipVolume: 0.589
+  - id: btn-click
+    audioClip: {fileID: 8300000, guid: caf294714214845a3817dddc30c4989e, type: 3}
+    type: 0
+    playAndLoopOnStart: 0
+    clipVolume: 1
+  - id: shape-selected
+    audioClip: {fileID: 8300000, guid: 14ad188d230394123ad9ebde9d58e8bd, type: 3}
+    type: 0
+    playAndLoopOnStart: 0
+    clipVolume: 1
+  - id: hint-used
+    audioClip: {fileID: 8300000, guid: 06c309767010849e3be532e360b0e2fc, type: 3}
+    type: 0
+    playAndLoopOnStart: 0
+    clipVolume: 1
+  - id: level-completed
+    audioClip: {fileID: 8300000, guid: 35024b669206f4f3bb55fc3cd97cfb59, type: 3}
+    type: 0
+    playAndLoopOnStart: 0
+    clipVolume: 1
+  - id: coins_rewarded
+    audioClip: {fileID: 8300000, guid: 516dafe63e6074dd7bfa885442202938, type: 3}
+    type: 0
+    playAndLoopOnStart: 0
+    clipVolume: 0.4
+  - id: coin
+    audioClip: {fileID: 8300000, guid: 3061ef42de0c44b4d8d2ed20f1d8961f, type: 3}
+    type: 0
+    playAndLoopOnStart: 0
+    clipVolume: 0.2
+  - id: shape-placed
+    audioClip: {fileID: 8300000, guid: ef15290762bbb40e58539502a4f45532, type: 3}
+    type: 0
+    playAndLoopOnStart: 0
+    clipVolume: 1
+--- !u!4 &1754725638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754725636}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1761418386
 GameObject:
   m_ObjectHideFlags: 0
@@ -25711,6 +25796,7 @@ SceneRoots:
   - {fileID: 1381255533}
   - {fileID: 1497575632}
   - {fileID: 266168720}
+  - {fileID: 1754725638}
   - {fileID: 1556087744}
   - {fileID: 418229419}
   - {fileID: 558570077}
