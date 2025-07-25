@@ -43,6 +43,7 @@ namespace dotmob.PolygonPuzzle
 		[SerializeField] private float				hintMaxAlpha		= 0.5f;
 		[SerializeField] private AnimationCurve		hintAnimCurve		= null;
 		[SerializeField] private float				hintAnimDuration	= 1f;	
+		[SerializeField] private Canvas canvas;
 
 		#endregion
 
@@ -290,18 +291,18 @@ namespace dotmob.PolygonPuzzle
 			PolygonContainerRectT.pivot		= new Vector2(0.5f, 0.5f);
 
 			// Set the size of the containers
-			float boardContainerSize		= RectT.rect.width;
-			float polygonContainerHeight	= RectT.rect.height - spaceBetweenContainers - boardContainerSize;
+			float boardContainerSize = 980f;
+			float polygonContainerHeight = RectT.rect.height - spaceBetweenContainers - boardContainerSize;
 
-			boardContainer.sizeDelta		= new Vector2(boardContainerSize, boardContainerSize);
-			PolygonContainerRectT.sizeDelta	= new Vector2(RectT.rect.width, polygonContainerHeight);
+			boardContainer.sizeDelta = new Vector2(boardContainerSize, boardContainerSize);
+			PolygonContainerRectT.sizeDelta = new Vector2(RectT.rect.width, polygonContainerHeight);
 
 			// Set the position of the containers
 			float boardContainerY = RectT.rect.height / 2f - boardContainerSize / 2f;
 			float polygonContainerY = -RectT.rect.height / 2f + polygonContainerHeight / 2f;
 
-			boardContainer.anchoredPosition			= new Vector2(0, boardContainerY);
-			PolygonContainerRectT.anchoredPosition	= new Vector2(0, polygonContainerY);
+			boardContainer.anchoredPosition = new Vector2(0, boardContainerY);
+			PolygonContainerRectT.anchoredPosition = new Vector2(0, polygonContainerY);
 		}
 
 		/// <summary>
@@ -511,8 +512,9 @@ namespace dotmob.PolygonPuzzle
 		{
 			// Get the screenPosition relative to the polygonContainer
 			Vector2 polygonContainerPosition;
-
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(PolygonContainerRectT, screenPosition, null, out polygonContainerPosition);
+	// for the CANVAS of Overlay type not World Space
+			// RectTransformUtility.ScreenPointToLocalPointInRectangle(PolygonContainerRectT, screenPosition, null, out polygonContainerPosition);
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(PolygonContainerRectT, screenPosition, canvas.worldCamera, out polygonContainerPosition);
 
 			// Set the position relative to the top/left corner of the polygonContainer
 			polygonContainerPosition.x += PolygonContainerRectT.rect.width / 2f;
@@ -566,8 +568,10 @@ namespace dotmob.PolygonPuzzle
 		private void UpdateActivePolygonObjectPosition(Vector2 screenPosition)
 		{
 			Vector2 gameAreaPosition;
-
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(RectT, screenPosition, null, out gameAreaPosition);
+			// OVERLAY CANVAS TYPE CODE 
+			// RectTransformUtility.ScreenPointToLocalPointInRectangle(RectT, screenPosition, canvas.worldCamera, out gameAreaPosition);
+			// 3D WORLD  TYPE CANVAS CODE
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(RectT, screenPosition, canvas.worldCamera, out gameAreaPosition);
 
 			Vector2 polygonPosition = gameAreaPosition;
 
@@ -584,6 +588,9 @@ namespace dotmob.PolygonPuzzle
 			RectTransform activePolygonSpriteRect = activePolygonObject.polygonSprite.rectTransform;
 
 			// Get the position of the active polygons in the board container
+			// OVERLAY CANVAS TYPE CODE 
+			// Vector2 boardPosition = Utilities.SwitchToRectTransform(activePolygonSpriteRect, boardContainer);
+			// 3D WORLD  TYPE CANVAS CODE
 			Vector2 boardPosition = Utilities.SwitchToRectTransform(activePolygonSpriteRect, boardContainer);
 
 			// Check that the polygon object (middle point) is on the board
@@ -781,7 +788,10 @@ namespace dotmob.PolygonPuzzle
 			// Get the screenPosition relative to the gridContainer
 			Vector2 boardPosition;
 
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(boardContainer, screenPosition, null, out boardPosition);
+			// OVERLAY CANVAS TYPE CODE
+			// RectTransformUtility.ScreenPointToLocalPointInRectangle(boardContainer, screenPosition, null, out boardPosition);
+			 // 3D WORLD  TYPE CANVAS CODE
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(boardContainer, screenPosition, canvas.worldCamera, out boardPosition);
 
 			// Get the polygon that was selected
 			PolygonObject polygonObject = GetSelectedPolygonOnBoard((boardPosition + boardContainer.rect.size / 2f) / polygonScale);
