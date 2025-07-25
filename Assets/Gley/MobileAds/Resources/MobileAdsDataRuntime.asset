@@ -20,11 +20,11 @@ MonoBehaviour:
       platform: 0
       enabled: 1
       appId:
-        id: ca-app-pub-7507052797945562~2338607357
+        id: ca-app-pub-5407119171237119~1339554634
         displayName: App ID
         required: 1
       idBanner:
-        id: 
+        id: ca-app-pub-5407119171237119/4435942527
         displayName: Banner ID
         required: 1
       idMRec:
@@ -32,11 +32,11 @@ MonoBehaviour:
         displayName: MRec ID
         required: 1
       idInterstitial:
-        id: 
+        id: ca-app-pub-5407119171237119/8112846541
         displayName: Interstitial ID
         required: 1
       idRewarded:
-        id: 
+        id: ca-app-pub-5407119171237119/6799764873
         displayName: Rewarded Video ID
         required: 1
       idRewardedInterstitial:
@@ -44,10 +44,10 @@ MonoBehaviour:
         displayName: Rewarded Interstitial ID
         required: 1
       idOpenApp:
-        id: 
+        id: ca-app-pub-5407119171237119/4084588735
         displayName: App Open ID
         required: 1
-      testMode: 1
+      testMode: 0
       testDevice: 
       debugGeography: 0
     directedForChildren: 0
