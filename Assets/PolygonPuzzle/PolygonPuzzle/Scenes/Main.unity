@@ -908,7 +908,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyInfos:
   - id: coins
-    startingAmount: 50
+    startingAmount: 80
     settings:
       autoUpdateCurrencyText: 0
       currencyText: {fileID: 525871155}
@@ -7125,7 +7125,9 @@ MonoBehaviour:
   - {r: 0.57488203, g: 0.028301716, b: 1, a: 1}
   - {r: 0.38039216, g: 0.9490196, b: 0.9607843, a: 1}
   - {r: 0.8784314, g: 0.8666667, b: 0.6666667, a: 1}
-  polygonSprites: []
+  polygonSprites:
+  - {fileID: -6171557971066326683, guid: bcdf4d59ebd37ea4d907b8f0081fc1bd, type: 3}
+  HintMaterial: {fileID: 2100000, guid: be8f71bb727d1dc448919742e4ff8eab, type: 2}
   hintMinAlpha: 0.1
   hintMaxAlpha: 0.4
   hintAnimCurve:
@@ -7674,7 +7676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0508fdd60d06b4e36a995fe0f35f5872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: https://www.google.com
+  url: https://play.google.com/store/apps/details?id=com.TheAppMakerPro.PolyLogic
 --- !u!114 &740616948
 MonoBehaviour:
   m_ObjectHideFlags: 0

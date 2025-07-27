@@ -38,6 +38,7 @@ namespace dotmob.PolygonPuzzle
 		[SerializeField] private float				polygonGhostAlpha	= 0.5f;
 		[SerializeField] private List<Color> 		polygonColors 		= null;
 		[SerializeField] private List<Sprite> 		polygonSprites 		= null;
+		[SerializeField] private Material HintMaterial = null;
 		[Space]
 		[SerializeField] private float				hintMinAlpha		= 0.5f;
 		[SerializeField] private float				hintMaxAlpha		= 0.5f;
@@ -91,6 +92,9 @@ namespace dotmob.PolygonPuzzle
 			// Create the two contains that will hold the polygons that are placed on the board
 			placedPolygonsContainer	= CreateBoardContainer("placed_polygons_container");
 			polygonHintsContainer	= CreateBoardContainer("polygon_hints_container");
+
+			// ! Ensure polygonHintsContainer is before placedPolygonsContainer in the hierarchy
+			polygonHintsContainer.SetSiblingIndex(0);
 
 			// Create a GridImage on the placedPolygonsContainer if we are to show grid lines
 			if (showGridLines)
@@ -250,6 +254,12 @@ namespace dotmob.PolygonPuzzle
 			PolygonObject polygonObject	= CreatePolygonObject(activeLevelData, polygonIndex);
 
 			hintPolygonObjects.Add(polygonObject);
+
+			// Assign the HintMaterial to the hint sprite if available
+			if (HintMaterial != null && polygonObject.polygonSprite != null && polygonObject.polygonSprite.TryGetComponent<UnityEngine.UI.Image>(out var img))
+			{
+				img.material = HintMaterial;
+			}
 
 			// Start the animation that will fade in/out the hint
 			Color fromColor	= polygonObject.polygonSprite.color;

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: IAPSettings
   m_EditorClassIdentifier: 
   productInfos:
-  - productId: Removeads
+  - productId: com.theappmakerpro.polylogic.removeads
     consumable: 0
-  - productId: coins1
+  - productId: com.theappmakerpro.polylogic.coins1
     consumable: 1
-  - productId: coins2
+  - productId: com.theappmakerpro.polylogic.coins2
     consumable: 1
-  - productId: coins3
+  - productId: com.theappmakerpro.polylogic.coins3
     consumable: 1
-  - productId: coins4
+  - productId: com.theappmakerpro.polylogic.coins4
     consumable: 1
