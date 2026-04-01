@@ -14673,7 +14673,7 @@ MonoBehaviour:
     - packId: Rabbit
       packName: Rabbit
       packDescription: 10 to 14 pieces puzzle
-      unlockType: 2
+      unlockType: 1
       unlockAmount: 400
       unlockIAPProductId: 
       levelFiles:
@@ -14751,9 +14751,6 @@ MonoBehaviour:
       - {fileID: 4900000, guid: 480a4cd4a5dca4ee38ae0f31ea51d95f, type: 3}
       - {fileID: 4900000, guid: 1da9ef9690cc343a39a4b20b6f031ed6, type: 3}
       - {fileID: 4900000, guid: 5cd932f8da5ad487b85987369434edce, type: 3}
-      - {fileID: 4900000, guid: dc7de7c4005f34e7082c79bdec8597de, type: 3}
-      - {fileID: 4900000, guid: a7408da938ddf4607887f475bbcb9b87, type: 3}
-      - {fileID: 4900000, guid: 86857aa617ed24805ad6f485709f6587, type: 3}
       - {fileID: 4900000, guid: 12c744c9e27594103be0cff054601d43, type: 3}
       - {fileID: 4900000, guid: 2086d03897aa84d41a06d46d7eb78106, type: 3}
       - {fileID: 4900000, guid: f955ba976b5024a3a9fb148f75b0a04c, type: 3}
@@ -14931,9 +14928,9 @@ MonoBehaviour:
   numLevelsForReward: 10
   numCoinsRewarded: 40
   numLevelsBetweenAds: 3
-  unlockAllPacks: 1
-  unlockAllLevels: 1
-  freeHints: 1
+  unlockAllPacks: 0
+  unlockAllLevels: 0
+  freeHints: 0
 --- !u!4 &1175414558
 Transform:
   m_ObjectHideFlags: 0
