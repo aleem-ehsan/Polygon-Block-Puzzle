@@ -69,14 +69,6 @@
       "source": "builtin",
       "dependencies": {}
     },
-    "com.unity.ide.cursor": {
-      "version": "file:C:/Users/IT-LINKS/Downloads/Compressed/com.unity.ide.cursor-master/com.unity.ide.cursor-master",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.9"
-      }
-    },
     "com.unity.ide.rider": {
       "version": "3.0.36",
       "depth": 0,

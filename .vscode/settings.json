@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Polygon-Block-Puzzle.sln"
+    "dotnet.defaultSolution": "Polygon-Block-Puzzle.sln",
+    "dotrush.roslyn.projectOrSolutionFiles": []
 }
